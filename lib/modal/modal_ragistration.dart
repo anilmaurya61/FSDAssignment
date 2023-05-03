@@ -1,5 +1,3 @@
-// import 'package:flutter/foundation.dart';
-
 class RegistrationFormData {
   final String? firstName;
   final String? lastName;

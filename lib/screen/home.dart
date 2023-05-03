@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:provider/provider.dart';
 import 'package:ragistration_application/screen/submitted.dart';
 import '../provider/Provider_ragistration.dart';
@@ -202,6 +204,15 @@ class _RegistrationFormScreenState extends State<RegistrationFormScreen> {
                           phoneNumber,
                           _cvFilePath!,
                         );
+                        // send email to user
+                        final smtpServer = gmail('anilmaurya0004@gmail.com', 'Anil@2000');
+                        final message = Message()
+                          ..from = Address('anilmaurya0004@gmail.com')
+                          ..recipients.add(email)
+                          ..subject = 'Registration Form Submitted'
+                          ..html =
+                              '<h1>Thank you for submitting the registration form!</h1><p>We have received your information and will process it as soon as possible.</p>';
+                        await send(message, smtpServer);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
